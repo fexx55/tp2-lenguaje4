@@ -1,0 +1,37 @@
+body {
+  background-color: #1a0b35;
+  color: #e0e6ed;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.card {
+  background-color: rgba(35, 20, 80, 0.8);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid #4a3b85;
+  border-left: 4px solid #6da2ff;
+  text-align: center;
+  min-width: 300px;
+}
+
+.card h1 {
+  color: #6da2ff;
+  margin-top: 0;
+}
