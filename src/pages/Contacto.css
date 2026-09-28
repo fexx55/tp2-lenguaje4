@@ -1,0 +1,66 @@
+.contacto-container {
+  max-width: 500px;
+  width: 100%;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-weight: bold;
+  color: #e0e6ed;
+}
+
+input, textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #6da2ff;
+  background-color: #2c1b5e;
+  color: white;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #a3c2ff;
+  box-shadow: 0 0 8px rgba(109, 162, 255, 0.4);
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.85em;
+  margin-top: 2px;
+}
+
+.contador-caracteres {
+  text-align: right;
+  font-size: 0.8em;
+  color: #8c9cd0;
+  margin-top: 2px;
+}
+
+.btn-enviar {
+  background-color: #6da2ff;
+  color: #1a0b35;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-enviar:hover {
+  background-color: #a3c2ff;
+}
