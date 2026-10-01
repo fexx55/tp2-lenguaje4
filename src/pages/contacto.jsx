@@ -9,6 +9,7 @@ function Contacto() {
   });
 
   const [errores, setErrores] = useState({});
+  const [estadoEnvio, setEstadoEnvio] = useState('');
 
   const validar = () => {
     let erroresTemp = {};
@@ -16,39 +17,54 @@ function Contacto() {
     if (!datos.nombre.trim()) {
       erroresTemp.nombre = 'El nombre y apellido son obligatorios.';
     }
-    
     if (!datos.email.trim()) {
       erroresTemp.email = 'El correo electrónico es obligatorio.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(datos.email)) {
       erroresTemp.email = 'El formato del correo electrónico no es válido.';
     }
-    
+  
     if (!datos.mensaje.trim()) {
       erroresTemp.mensaje = 'El mensaje no puede estar vacío.';
     } else if (datos.mensaje.length > 300) {
       erroresTemp.mensaje = 'El mensaje no debe superar los 300 caracteres.';
     }
-
     return erroresTemp;
   };
-
   const handleChange = (e) => {
     setDatos({
       ...datos,
       [e.target.name]: e.target.value
     });
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const erroresValidacion = validar();
     setErrores(erroresValidacion);
-
     if (Object.keys(erroresValidacion).length === 0) {
-      // AQUÍ VA EL ENVÍO "COMO LO VISTO EN CLASES"
-      // Si usaron un <form action="..."> clásico, podés usar e.target.submit();
-      // Si usaron fetch() a una API (como Formspree o Formsubmit), va acá.
-      alert('Datos validados correctamente. Listo para enviar a tu correo.');
+      setEstadoEnvio('Enviando...');
+      try {
+        const respuesta = await fetch("https://formsubmit.co/ajax/ezequiel.silvera.sandoval@gmail.com", {
+          method: "POST",
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            Nombre: datos.nombre,
+            Email: datos.email,
+            Mensaje: datos.mensaje,
+            _subject: "Nuevo mensaje de contacto - TP3 Lenguaje IV"
+          })
+        });
+        if (respuesta.ok) {
+          setEstadoEnvio('¡Mensaje enviado con éxito a la casilla de correo!');
+          setDatos({ nombre: '', email: '', mensaje: '' });
+        } else {
+          setEstadoEnvio('Error al enviar el mensaje. Intente nuevamente.');
+        }
+      } catch (error) {
+        setEstadoEnvio('Ocurrió un error en la conexión.');
+      }
     }
   };
 
@@ -99,6 +115,7 @@ function Contacto() {
         </div>
 
         <button type="submit" className="btn-enviar">Enviar Mensaje</button>
+        {estadoEnvio && <p style={{ textAlign: 'center', marginTop: '10px' }}>{estadoEnvio}</p>}
       </form>
     </div>
   );
